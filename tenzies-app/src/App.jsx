@@ -1,7 +1,7 @@
 import Die from "../components/Die";
 import { useState, useRef, useEffect } from "react";
 import { nanoid } from "nanoid";
-import clsx from 'clsx'
+import clsx from "clsx";
 import Confetti from "react-confetti";
 export default function App() {
   function generateAllNewDice() {
@@ -49,9 +49,8 @@ export default function App() {
     gameWon ? focusedKey.current.focus() : null;
   }, [gameWon]);
   const minutes = Math.floor(remainingSeconds / 60);
-  const seconds = String(remainingSeconds % 60).padStart(2, "0");
-  const timer = `${minutes}:${seconds}`;
-
+  const seconds = remainingSeconds % 60;
+  const timer = `${String(minutes).padStart(2, "0")}: ${String(seconds).padStart(2, "0")}`;
   function rollDice() {
     // Bob Ziroll
     // setDice((oldDice) =>
@@ -114,10 +113,14 @@ export default function App() {
         {gameWon && <Confetti />}
 
         <h1 className="title">Tenzies</h1>
-        <p className={clsx("instructions", {
-          "game-won": gameWon,
-          "game-over": isGameOver
-        })}>{paragraghEl}</p>
+        <p
+          className={clsx("instructions", {
+            "game-won": gameWon,
+            "game-over": isGameOver,
+          })}
+        >
+          {paragraghEl}
+        </p>
 
         <div className="diceContainer">{createDie()}</div>
         <button ref={focusedKey} onClick={rollDice} className="roll-btn">
